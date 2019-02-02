@@ -16,4 +16,6 @@ public interface UsersDAO extends CrudRepository<Users, Long> {
 	
 	public Users save(Users persisted);
 
+	public Users findOneByUsername(String username);
+
 }

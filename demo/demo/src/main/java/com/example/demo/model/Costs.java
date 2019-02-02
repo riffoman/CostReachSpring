@@ -10,12 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import lombok.Data;
 @Entity
 @Table(name = "s_troskovi")
+@Data
+@SequenceGenerator(name = "s_troskovi_seq_gen", sequenceName = "s_troskovi_seq", allocationSize=1)
+
 public class Costs {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_troskovi_seq_gen")
 	@Column(name = "id_str")
 	private Long id;
 	

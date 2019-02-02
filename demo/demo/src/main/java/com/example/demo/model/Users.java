@@ -7,14 +7,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
 @Table(name = "s_korisnik")
+@Data
+@SequenceGenerator(name = "s_korisnik_seq_gen", sequenceName = "s_korisnik_seq", allocationSize=1)
 public class Users {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "s_korisnik_seq_gen")
 	@Column(name = "id_sko")
 	private Long id;
 
@@ -42,93 +47,4 @@ public class Users {
 	@ManyToOne
 	@JoinColumn(name = "id_sko_sko")
 	private Users user;
-
-	public Users() {
-		super();
-	}
-
-	public Users(String mail, String name, String lastName, String username, String phoneNumber, String address,
-			String password) {
-		super();
-		this.mail = mail;
-		this.name = name;
-		this.lastName = lastName;
-		this.username = username;
-		this.phoneNumber = phoneNumber;
-		this.address = address;
-		this.password = password;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public Users getUser() {
-		return user;
-	}
-
-	public void setUser(Users user) {
-		this.user = user;
-	}
-
 }
