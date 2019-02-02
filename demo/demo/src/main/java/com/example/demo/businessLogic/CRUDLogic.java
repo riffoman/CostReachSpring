@@ -99,5 +99,19 @@ public class CRUDLogic {
 		}
 		return listOfAllCosts;
 	}
+	
+	public Costs createCost(CostsDTO costsDTO) {
+		Users user = usersDAO.findOneByUsername(costsDTO.getCreatedBy());
+		Categories categories=categoriesDAO.findOneByName(costsDTO.getCategory());
+		Costs costs = new Costs();
+		costs.setCategory(categories);
+		costs.setUser(user);
+		costs.setDate(costsDTO.getDate());
+		costs.setDescription(costsDTO.getDescription());
+		costs.setId(costsDTO.getId());
+		costs.setPrice(costsDTO.getPrice());
+
+		return costsDAO.save(costs);
+	}
 
 }
