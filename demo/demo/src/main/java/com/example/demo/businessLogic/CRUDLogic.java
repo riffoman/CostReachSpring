@@ -23,7 +23,7 @@ public class CRUDLogic {
 
 	@Autowired
 	UsersDAO usersDAO;
-	
+
 	@Autowired
 	CostsDAO costsDAO;
 
@@ -55,8 +55,13 @@ public class CRUDLogic {
 	}
 
 	public void deleteCategory(Categories categories) {
-		categoriesDAO.delete(categories);
-		;
+		try {
+			categoriesDAO.delete(categories);
+		} catch (Exception x) {
+			//ovjde moze i cusom exception ili bilo sta
+			throw new RuntimeException("Brisanje nije moguce");
+		}
+
 	}
 
 	public List<UsersDTO> getAllUsers() {
@@ -99,10 +104,10 @@ public class CRUDLogic {
 		}
 		return listOfAllCosts;
 	}
-	
+
 	public Costs createCost(CostsDTO costsDTO) {
 		Users user = usersDAO.findOneByUsername(costsDTO.getCreatedBy());
-		Categories categories=categoriesDAO.findOneByName(costsDTO.getCategory());
+		Categories categories = categoriesDAO.findOneByName(costsDTO.getCategory());
 		Costs costs = new Costs();
 		costs.setCategory(categories);
 		costs.setUser(user);
