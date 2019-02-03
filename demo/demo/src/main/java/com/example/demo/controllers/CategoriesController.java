@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.businessLogic.CRUDLogic;
 import com.example.demo.dto.CategoriesDTO;
+import com.example.demo.exceptionHandlers.MandatoryDataMissingException;
 import com.example.demo.model.Categories;
 
 @RestController
@@ -38,7 +39,10 @@ public class CategoriesController {
 	}
 
 	@PostMapping
-	public Categories createCategory(@RequestBody CategoriesDTO categoryDTO) {
+	public Categories createCategory(@RequestBody CategoriesDTO categoryDTO) throws MandatoryDataMissingException {
+		if(categoryDTO.getName()==null) {
+			throw new MandatoryDataMissingException("Nema dovoljno podataka");
+		}
 		return (businessLogic.createCategory(categoryDTO));
 	}
 	

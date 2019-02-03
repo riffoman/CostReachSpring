@@ -15,6 +15,12 @@ public class CostsExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorMessage exceptionResponse = new ErrorMessage(ex.getMessage(), "Neka greška");
 		return new ResponseEntity<ErrorMessage>(exceptionResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
+	@ExceptionHandler(MandatoryDataMissingException.class)
+	protected ResponseEntity<ErrorMessage> handleMissingData(MandatoryDataMissingException ex) {
+		ErrorMessage exceptionResponse = new ErrorMessage(ex.getMessage(), "Data missing");
+		return new ResponseEntity<ErrorMessage>(exceptionResponse, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+	}
 }
 
 class ErrorMessage {
