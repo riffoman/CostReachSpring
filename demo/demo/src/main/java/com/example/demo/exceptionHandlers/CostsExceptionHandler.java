@@ -12,7 +12,10 @@ public class CostsExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<ErrorMessage> handleConflict(Exception ex) {
-		ErrorMessage exceptionResponse = new ErrorMessage(ex.getMessage(), "Neka greška");
+		String errorMessage=ex.getLocalizedMessage();
+		if (errorMessage==null)
+			errorMessage=ex.getMessage();
+		ErrorMessage exceptionResponse = new ErrorMessage(errorMessage, "Neka greška");
 		return new ResponseEntity<ErrorMessage>(exceptionResponse, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
