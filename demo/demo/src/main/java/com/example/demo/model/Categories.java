@@ -13,10 +13,11 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Data
 @Entity
 @Table(name = "s_kategorija")
-@Data
 @SequenceGenerator(name = "s_kategorija_seq_gen", sequenceName = "s_kategorija_seq", allocationSize=1)
 public class Categories {
 

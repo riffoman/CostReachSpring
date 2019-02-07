@@ -19,38 +19,43 @@ import com.example.demo.dto.CategoriesDTO;
 import com.example.demo.exceptionHandlers.MandatoryDataMissingException;
 import com.example.demo.model.Categories;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/categories")
 public class CategoriesController {
-	
+
 	@Autowired
 	CRUDLogic businessLogic;
 
 	@GetMapping
 	@ResponseBody
 	public List<CategoriesDTO> findAll() {
+		log.info("metoda koja vraca sve kategorije");
 		return businessLogic.getAllCategories();
 	}
 
-	@RequestMapping(value = "/{name}", method = RequestMethod.GET)
+	@GetMapping(value = "/{name}")
 	@ResponseBody
 	public CategoriesDTO findOneByName(@PathVariable("name") String name) {
+		log.info("metoda koja vraca kategoriju u zavisnostiod imena kategorije");
 		return businessLogic.getCategoryByName(name);
 	}
 
 	@PostMapping
 	public Categories createCategory(@RequestBody CategoriesDTO categoryDTO) throws MandatoryDataMissingException {
-		if(categoryDTO.getName()==null) {
+		if (categoryDTO.getName() == null) {
 			throw new MandatoryDataMissingException("Nema dovoljno podataka");
 		}
 		return (businessLogic.createCategory(categoryDTO));
 	}
-	
+
 	@PutMapping
 	public Categories updateCategory(@RequestBody Categories categories) {
 		return (businessLogic.updateCategory(categories));
 	}
-	
+
 	@DeleteMapping
 	public void deleteCategory(@RequestBody Categories categories) {
 		businessLogic.deleteCategory(categories);
