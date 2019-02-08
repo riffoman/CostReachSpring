@@ -14,6 +14,8 @@ public class CategoriesDTO {
 	@NotNull
 	@Size(min = 5, message = "Category name must be at least 5 characters long")
 	private String name;
+	
+	@NotNull
 	private String userName;
 
 	public CategoriesDTO(Categories category) {

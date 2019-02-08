@@ -1,5 +1,8 @@
 package com.example.demo.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.example.demo.model.Users;
 
 import lombok.Data;
@@ -8,14 +11,24 @@ import lombok.Data;
 public class UsersDTO {
 	private Long id;
 	private String mail;
+
+	@NotNull
 	private String name;
+
+	@NotBlank(message = "polje last name je obavezno")
 	private String lastName;
+
+	@NotBlank(message = "polje username je obavezno")
 	private String username;
 	private String phoneNumber;
 	private String address;
+
+	@NotBlank(message = "polje password je obavezno")
 	private String password;
+
+	@NotBlank(message = "polje createdBy je obavezno")
 	private String createdBy;
-	
+
 	public UsersDTO(Users users) {
 		super();
 		this.mail = users.getMail();

@@ -2,7 +2,10 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.businessLogic.CRUDLogic;
 import com.example.demo.dto.CategoriesDTO;
+import com.example.demo.dto.CostsDTO;
 import com.example.demo.dto.UsersDTO;
+import com.example.demo.exceptionHandlers.MandatoryDataMissingException;
+import com.example.demo.model.Costs;
 import com.example.demo.model.Users;
 
 @RestController
@@ -39,15 +45,18 @@ public class UsersController {
 	}
 
 	@PostMapping
-	public Users createUser(@RequestBody UsersDTO userDTO) {
+	public Users createUser(@RequestBody @Valid UsersDTO userDTO, Errors errors) throws MandatoryDataMissingException {
+		if (errors.hasErrors()) {
+			throw new MandatoryDataMissingException(errors.getFieldError().toString());
+		}
 		return (businessLogic.createUser(userDTO));
 	}
-	
+
 	@PutMapping
 	public Users updateUser(@RequestBody Users users) {
 		return (businessLogic.updateUser(users));
 	}
-	
+
 	@DeleteMapping
 	public void deleteUser(@RequestBody Users users) {
 		businessLogic.deleteUser(users);
