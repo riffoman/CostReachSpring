@@ -49,7 +49,7 @@ public class CategoriesController {
 	public Categories createCategory(@RequestBody @Valid CategoriesDTO categoryDTO, Errors errors)
 			throws MandatoryDataMissingException {
 		if (errors.hasErrors()) {
-			throw new MandatoryDataMissingException(errors.getFieldError().toString());
+			throw new MandatoryDataMissingException(errors.getFieldError().getDefaultMessage());
 		}
 		return (businessLogic.createCategory(categoryDTO));
 	}
