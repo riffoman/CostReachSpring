@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -11,10 +12,10 @@ import lombok.Data;
 public class CategoriesDTO {
 	private Long id;
 
-	@NotNull
-	@Size(min = 5, message = "Category name must be at least 5 characters long")
+	@NotEmpty(message = "{error.name.longerThan5}")
+	@Size(min = 5, message = "{error.name.longerThan5}")
 	private String name;
-	
+
 	@NotNull
 	private String userName;
 
